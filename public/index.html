@@ -27,6 +27,11 @@
 
         .veiculo-info { font-size: 0.9em; padding: 10px 0; border-top: 1px dashed #ccc; }
         .veiculo-info:first-child { border-top: none; }
+
+        input, button { padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
+        button { cursor: pointer; background-color: #28a745; color: white; border: none; }
+        button:hover { background-color: #1e7e34; }
+        #termoBusca { width: 70%; }
     </style>
 </head>
 <body>
@@ -37,8 +42,8 @@
         <div class="sidebar">
             <div id="busca-linha">
                 <h2>1. Buscar Linha</h2>
-                <input type="text" id="termoBusca" placeholder="Ex: 8000 ou Lapa" style="width: 70%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
-                <button onclick="buscarLinha()" style="padding: 8px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Buscar</button>
+                <input type="text" id="termoBusca" placeholder="Ex: 8000 ou Lapa">
+                <button onclick="buscarLinha()">Buscar</button>
                 <p id="mensagem-linha" style="color: red; margin-top: 10px;"></p>
                 <div id="resultado-linhas"></div>
             </div>
