@@ -4,12 +4,7 @@
   # Diretório das Netlify Functions
   functions = "functions"
 
-[functions]
-  # Exemplo de configuração, pode ser omitido se a configuração padrão for suficiente
-  node_bundler = "esbuild"
-
-# Redirecionamento de CORS (apenas para teste, a função já resolve)
-# O redirecionamento pode ser útil para o Netlify Function
+# Redirecionamento de /api/* para a Netlify Function
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/sptrans-proxy"
