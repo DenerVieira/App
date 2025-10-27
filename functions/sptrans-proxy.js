@@ -1,8 +1,7 @@
 // functions/sptrans-proxy.js
 
-// Lembre-se: O TOKEN DEVE ser configurado como variável de ambiente no Netlify (SPTRANS_TOKEN)
+// Lembre-se: O TOKEN DEVE ser configurado como variável de ambiente no NETLIFY (SPTRANS_TOKEN)
 const TOKEN = process.env.SPTRANS_TOKEN;
-// URL base corrigida para v2.1
 const BASE_URL = 'http://api.olhovivo.sptrans.com.br/v2.1'; 
 const AUTH_URL = `${BASE_URL}/Login/Autenticar?token=${TOKEN}`;
 
@@ -13,9 +12,10 @@ let lastAuthTime = 0;
  * Autentica ou renova a autenticação com a API da SPTrans.
  */
 const authenticate = async () => {
-    // Reautentica se o cookie estiver vazio ou se a última autenticação foi há mais de 12 minutos (720000 ms)
-    if (!sessionCookie || (Date.now() - lastAuthTime > 720000)) {
-        console.log("Tentando autenticar...");
+    // Reautentica se o cookie estiver vazio ou se a última autenticação foi há mais de 10 minutos (600000 ms)
+    // O cookie SPTrans dura 15-20 min, este é um buffer seguro.
+    if (!sessionCookie || (Date.now() - lastAuthTime > 600000)) {
+        console.log("Tentando autenticar ou reautenticar...");
         try {
             const response = await fetch(AUTH_URL, { method: 'POST' });
 
@@ -77,6 +77,7 @@ exports.handler = async (event, context) => {
 
     // 2. Realiza a chamada real à API da SPTrans
     try {
+        console.log(`Proxy: Encaminhando requisição para ${path}`); // Log de confirmação
         const apiResponse = await fetch(fullUrl, {
             method: 'GET',
             headers: {
@@ -95,7 +96,7 @@ exports.handler = async (event, context) => {
         };
     } catch (error) {
         // Captura erros de rede/timeout entre o Netlify e a SPTrans
-        console.error("Erro FATAL ao chamar a API da SPTrans (Proxy):", error);
+        console.error("Erro FATAL ao chamar a API da SPTrans (Proxy Timeout):", error);
         return {
             statusCode: 500,
             body: JSON.stringify({ error: "Falha na comunicação de rede com a API da SPTrans (Proxy Timeout)." }),
