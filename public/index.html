@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rastreamento de Ônibus SPTrans</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #resultado-linhas, #resultado-veiculos { margin-top: 20px; border: 1px solid #ccc; padding: 10px; }
+        .linha-item { cursor: pointer; padding: 5px; border-bottom: 1px dashed #eee; }
+        .linha-item:hover { background-color: #f0f0f0; }
+        .veiculo-item { margin-bottom: 5px; border-left: 3px solid blue; padding-left: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Rastreamento de Ônibus (SPTrans - Olho Vivo)</h1>
+
+    <div id="busca-linha">
+        <h2>1. Buscar Linha</h2>
+        <input type="text" id="termoBusca" placeholder="Ex: 8000 ou Lapa">
+        <button onclick="buscarLinha()">Buscar</button>
+        <p id="mensagem-linha"></p>
+        <div id="resultado-linhas"></div>
+    </div>
+
+    <div id="posicao-veiculos">
+        <h2>2. Posição dos Veículos</h2>
+        <p>Clique em uma linha acima para ver os veículos ou insira o Código da Linha (CL).</p>
+        <input type="number" id="codigoLinha" placeholder="Código CL da Linha">
+        <button onclick="buscarVeiculos()">Buscar Veículos</button>
+        <p id="mensagem-veiculo"></p>
+        <div id="resultado-veiculos"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
